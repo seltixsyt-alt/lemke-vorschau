@@ -1,0 +1,15 @@
+THEORIEPLAN AKTUALISIEREN
+
+1. Die neue PDF in diesen Ordner legen (downloads/theorieplan/).
+   Der Dateiname ist egal. Am besten mit Datum, z. B.:
+   Theorieplan-ab-05.10.26.pdf
+
+2. Fertig. Die Website zeigt automatisch den neuesten Plan an,
+   auch das Datum "Gültig ab ..." wird aus dem Dateinamen gelesen.
+
+Gut zu wissen:
+- Steht in mehreren Dateinamen ein Datum, gewinnt das neueste Datum.
+- Ohne Datum im Namen gewinnt die zuletzt hochgeladene Datei.
+- Alte Pläne können liegen bleiben oder gelöscht werden.
+- Die Adresse zum Teilen bleibt immer gleich:
+  https://fahrschule-lemke-kiel.de/theorieplan
