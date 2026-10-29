@@ -107,7 +107,7 @@
   // Das Datum kommt aus dem Dateinamen der aktuellen PDF (siehe theorieplan.php)
   var standEls = document.querySelectorAll("[data-plan-stand]");
   if (standEls.length && window.fetch) {
-    fetch("/theorieplan?info=1", { cache: "no-store" })
+    fetch("theorieplan.json", { cache: "no-store" })
       .then(function (r) { return r.json(); })
       .then(function (info) {
         var text = !info.vorhanden ? "Der neue Plan kommt in Kürze. Frag gern im Büro nach."
@@ -229,4 +229,20 @@
       if (firstBad) { e.preventDefault(); firstBad.scrollIntoView({ block: "center" }); firstBad.focus({ preventScroll: true }); }
     });
   }
+})();
+
+/* Vorschau: Formular sendet nichts, zeigt nur eine Rueckmeldung */
+(function () {
+  var form = document.getElementById("kontaktformular");
+  if (!form) return;
+  form.addEventListener("submit", function (e) {
+    if (e.defaultPrevented) return;
+    e.preventDefault();
+    var status = document.querySelector(".form-status");
+    if (status) {
+      status.textContent = "Vorschau: Das Formular ist hier nur eine Demo, es wird nichts gesendet.";
+      status.classList.add("is-ok");
+      status.scrollIntoView({ block: "center" });
+    }
+  });
 })();
