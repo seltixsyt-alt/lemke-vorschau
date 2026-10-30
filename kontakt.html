@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kontakt | Fahrschule Lemke</title>
 <meta name="description" content="Kontakt zur Fahrschule Lemke: Telefon und WhatsApp für Kronshagen, Kiel, Altenholz und Gettorf, E-Mail und Kontaktformular.">
 <link rel="canonical" href="https://fahrschule-lemke-kiel.de/kontakt.html">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#e3007a">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fahrschule Lemke">
@@ -49,9 +48,9 @@
     
   </div>
 </section>
-<section class="section" style="padding-top: 0">
+<section class="section pt-0">
   <div class="container contact-grid">
-    <form class="form" id="kontaktformular" action="kontakt.html" method="post" data-validate accept-charset="UTF-8">
+    <form class="form" id="kontaktformular" action="kontakt.html" method="post" data-validate data-token-url="form-token.json" accept-charset="UTF-8">
       <h2 class="visually-hidden">Kontaktformular</h2>
       <div class="form-status" role="status" aria-live="polite"></div>
       <div class="form-row">
@@ -64,9 +63,10 @@
       </div>
       <div class="field"><label for="thema">Worum geht es?</label><select id="thema" name="thema"><option>Pkw</option><option>Motorrad oder Roller</option><option>Lkw oder Bus</option><option>Traktor</option><option>Berufskraftfahrer</option><option>Bildungsgutschein</option><option>Seminar FES oder ASF</option><option>Sonstiges</option></select></div>
       <div class="field"><label for="nachricht">Nachricht</label><textarea id="nachricht" name="nachricht" required minlength="10" maxlength="5000" aria-describedby="msg-err"></textarea><span class="error" id="msg-err">Bitte schreib uns kurz, worum es geht (mindestens 10 Zeichen).</span></div>
-      <div class="field"><label for="antwort">Kurze Rechenaufgabe: Was ist 4 plus 3?</label><input id="antwort" name="antwort" type="text" inputmode="numeric" required maxlength="3" autocomplete="off" aria-describedby="antwort-err antwort-help"><span class="help" id="antwort-help">Damit halten wir automatische Spam-Nachrichten fern.</span><span class="error" id="antwort-err">Bitte trag das Ergebnis ein.</span></div>
+      <div class="field"><label for="antwort" data-frage>Sicherheitsfrage wird geladen ...</label><input id="antwort" name="antwort" type="text" inputmode="numeric" required maxlength="3" autocomplete="off" aria-describedby="antwort-err antwort-help"><span class="help" id="antwort-help">Damit halten wir automatische Spam-Nachrichten fern.</span><span class="error" id="antwort-err">Bitte trag das Ergebnis ein.</span></div>
+      <input type="hidden" name="formular_token" value="">
       <div class="hp" aria-hidden="true"><label for="fl_feld">Bitte leer lassen</label><input id="fl_feld" name="fl_feld" type="text" tabindex="-1" autocomplete="off"></div>
-      <div class="field"><label class="check"><input type="checkbox" name="datenschutz" value="ja" required> <span>Ich bin einverstanden, dass meine Angaben zur Beantwortung meiner Anfrage verarbeitet werden. Mehr dazu in der <a class="text-link" href="datenschutz.html">Datenschutzerklärung</a>.</span></label><span class="error">Bitte bestätige den Hinweis zum Datenschutz.</span></div>
+      <div class="field"><label class="check"><input type="checkbox" name="datenschutz" value="ja" required aria-describedby="ds-err"> <span>Ich bin einverstanden, dass meine Angaben zur Beantwortung meiner Anfrage verarbeitet werden. Mehr dazu in der <a class="text-link" href="datenschutz.html">Datenschutzerklärung</a>.</span></label><span class="error" id="ds-err">Bitte bestätige den Hinweis zum Datenschutz.</span></div>
       <div><button class="btn btn--primary" type="submit"><svg class="icon" aria-hidden="true" focusable="false"><use href="assets/img/icons.svg#envelope-simple"></use></svg>Nachricht senden</button></div>
     </form>
     <aside class="contact-aside">

@@ -561,3 +561,16 @@ main + .site-footer { margin-top: 0; }
 .footer-locs li { display: grid; }
 .footer-locs .tel { font-size: .88rem; font-variant-numeric: tabular-nums; }
 .site-footer .footer-locs { gap: var(--s3); }
+
+/* ---------- Bilder mit WebP: <picture> soll das Layout nicht verändern ---------- */
+picture { display: contents; }
+
+/* ---------- Abstands-Helfer (statt style-Attributen, wegen der Content-Security-Policy) ---------- */
+.mt-4 { margin-top: var(--s4); }
+.mt-5 { margin-top: var(--s5); }
+.mt-6 { margin-top: var(--s6); }
+.mt-8 { margin-top: var(--s8); }
+.mb-4 { margin-bottom: var(--s4); }
+.pt-0 { padding-top: 0; }
+.section.pt-7 { padding-top: var(--s7); }
+.section.pt-0 { padding-top: 0; }

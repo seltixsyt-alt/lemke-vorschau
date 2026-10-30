@@ -208,7 +208,10 @@
       status.textContent = "Danke, deine Nachricht ist angekommen. Wir melden uns so schnell wie möglich.";
       status.classList.add("is-ok");
     } else if (status && q === "fehler") {
-      status.textContent = "Das hat leider nicht geklappt. Bitte prüf deine Angaben oder ruf uns direkt an.";
+      status.textContent = "Das hat leider nicht geklappt. Bitte prüf deine Angaben und die Sicherheitsfrage oder ruf uns direkt an.";
+      status.classList.add("is-error");
+    } else if (status && q === "zuviel") {
+      status.textContent = "Von deinem Anschluss kamen gerade sehr viele Nachrichten. Bitte versuch es später noch einmal oder ruf uns an unter 0431 54 86 08.";
       status.classList.add("is-error");
     }
     var sel = new URLSearchParams(location.search).get("thema");
@@ -216,8 +219,39 @@
       Array.prototype.forEach.call(form.thema.options, function (o) { if (o.value === sel) form.thema.value = sel; });
     }
 
+    /* Sicherheitsfrage und Token vom Server holen. Die Antwort steht nicht im HTML. */
+    var tokenUrl = form.getAttribute("data-token-url");
+    var tokenField = form.querySelector('input[name="formular_token"]');
+    var frageLabel = form.querySelector("[data-frage]");
+    if (tokenUrl && tokenField && window.fetch) {
+      fetch(tokenUrl, { cache: "no-store", headers: { Accept: "application/json" } })
+        .then(function (r) { if (!r.ok) throw new Error("token"); return r.json(); })
+        .then(function (data) {
+          if (!data || !data.token || !data.frage) throw new Error("token");
+          tokenField.value = data.token;
+          if (frageLabel) frageLabel.textContent = "Sicherheitsfrage: " + data.frage;
+        })
+        .catch(function () {
+          tokenField.value = "";
+          if (frageLabel) frageLabel.textContent = "Sicherheitsfrage (konnte nicht geladen werden)";
+          if (status) {
+            status.textContent = "Die Sicherheitsfrage konnte nicht geladen werden. Bitte lade die Seite neu oder ruf uns an unter 0431 54 86 08.";
+            status.className = "form-status is-error";
+          }
+        });
+    }
+
     form.setAttribute("novalidate", "");
     form.addEventListener("submit", function (e) {
+      if (tokenField && !tokenField.value) {
+        e.preventDefault();
+        if (status) {
+          status.textContent = "Die Sicherheitsfrage fehlt noch. Bitte lade die Seite neu und versuch es noch einmal.";
+          status.className = "form-status is-error";
+          status.scrollIntoView({ block: "center" });
+        }
+        return;
+      }
       var firstBad = null;
       form.querySelectorAll("[required]").forEach(function (input) {
         var field = input.closest(".field") || input.closest(".check");
@@ -231,7 +265,7 @@
   }
 })();
 
-/* Vorschau: Formular sendet nichts, zeigt nur eine Rueckmeldung */
+/* Vorschau auf GitHub: Das Formular sendet nichts, es zeigt nur eine Rückmeldung */
 (function () {
   var form = document.getElementById("kontaktformular");
   if (!form) return;
@@ -241,7 +275,7 @@
     var status = document.querySelector(".form-status");
     if (status) {
       status.textContent = "Vorschau: Das Formular ist hier nur eine Demo, es wird nichts gesendet.";
-      status.classList.add("is-ok");
+      status.className = "form-status is-ok";
       status.scrollIntoView({ block: "center" });
     }
   });
